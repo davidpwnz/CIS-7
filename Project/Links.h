@@ -4,7 +4,6 @@
 class Links {
 private:
     int *user;
-
 public:
     Links();
     Links(int);
@@ -15,6 +14,4 @@ public:
     void setData(int i, int data);
 };
 
-
 #endif /* LINKS_H */
-
