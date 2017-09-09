@@ -1,1 +1,27 @@
+#include <iostream>
+#include <cstdlib>
+using namespace std;
 
+int main() {
+	int userInt;
+	char userInput;
+	cout << "This program will display whether the users Integer is odd or even." << endl;
+	do {
+		cout << "Enter a integer." << endl;
+		cin >> userInt;
+		while (!cin.good()) {
+			cin.clear();
+			cin.ignore(INT_MAX, '\n');
+			cout << "Re-Enter a integer." << endl;
+			cin >> userInt;
+		}
+		if (userInt % 2 == 0)
+			cout << "Integer is Even." << endl << endl;
+		else
+			cout << "Integer is Odd." << endl << endl;
+		cout << "Enter 'Q' if you would like to quit. Otherwise enter ANY OTHER value." << endl;
+		cin >> userInput;
+		cout << endl;
+	} while (tolower(userInput) != 'q');
+	return 0;
+}
