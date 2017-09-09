@@ -1,7 +1,8 @@
-35.
-37.
-38.
-61.
-62.
-63.
-64.
+35. (1.0,2.4,7.2,5.3)
+37. if not (Value1 < Value2) then satement1 else statement2 end if
+38. Yes
+61. A'uB'. Atleast 1 person is a liar. This does not mean both cannot be liars.
+62. A->B. If the first is a truth teller, then the second has to be a truth teller. However, if the first is not a truth teller, then
+    the second is not a truth teller. 
+63. A'uB 
+64. A'^B
