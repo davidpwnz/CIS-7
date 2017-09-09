@@ -1,1 +1,18 @@
-
+1. Show that p->q and q' -> p' are logically equivalent without using truth tables or a "contrapositive" law (don't assume they are true)
+   - Since P is true, then Q is true. However, since not Q is false, then logic states that not P is also false.
+2. Show that (p->r) ^ (q->r) <=> (p v q) -> r
+   - P | Q | R | PuQ | P->R |  Q->R  | (PuQ)->R  | (P->R)^(Q->R)
+  --------------------------------------------------------------
+    T   T   T    T      T       T         T             T
+    T   F   T    T      T       F         T             F
+    T   T   F    T      T       T         T             T
+    T   F   F    T      T       F         T             F
+    F   T   T    T      F       T         T             F
+    F   F   T    F      F       F         T             F
+    F   T   F    T      F       T         F             F
+    F   F   F    F      F       F         F             F
+3. Come up with 2 more questions like the ones above. Incorporate the logic laws we discussed in class. 
+   Your questions will be used in the next class' lab
+    - P'^(P->Q)
+    
+    - (P->Q)^(Q->R)
