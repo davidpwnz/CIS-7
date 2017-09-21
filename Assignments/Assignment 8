@@ -1,0 +1,48 @@
+#include <iostream>
+#include <climits>
+using namespace std;
+
+int main()
+{
+int maxNum=10000, qtyPrime=0, actualCount=0;
+/* not using input due to internet compile program
+cout << "Enter the max number to check" << endl;
+cin >> maxNum;
+while(cin.fail()) {
+cin.clear();
+cin.ignore(INT_MAX,'\n');
+cout << "Enter the max number again" << endl;
+cin >> maxNum;
+}
+
+cout << "Enter how many primes you think there are between 0 and " << maxNum << endl;
+cin >> qtyPrime;
+while(cin.fail()) {
+cin.clear();
+cin.ignore(INT_MAX,'\n');
+cout << "Enter the amount of primes you think there are again between 0 and " << maxNum << endl;
+cin >> qtyPrime;
+}
+*/
+for(int i = 2; i < maxNum; i++) {
+bool prime = true;
+for(int j = 2; j < i; j++) {
+if(i%j==0) {
+prime = false;
+j = i;
+}
+}
+if(prime)
+actualCount++;
+}
+
+if(qtyPrime==actualCount)
+cout << "Correct" << endl;
+else
+cout << "Better luck next time" << endl;
+
+cout << "Your guess: " << qtyPrime << endl;
+cout << "Actual count: " << actualCount << endl;
+
+    return 0;
+}
