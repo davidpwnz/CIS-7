@@ -1,0 +1,38 @@
+#include <iostream>
+#include <climits>
+using namespace std;
+int main() { 
+int a,b,min,max,gcd; 
+cout << "Enter the value for a" << endl; 
+cin >> a; 
+while(!cin.good()) {  
+cin.clear();  
+cin.ignore(INT_MAX, '\n');  
+cout << "Enter the value for a AGAIN" << endl;  
+cin >> a;  
+} 
+cout << "Enter the value for b" << endl; 
+cin >> b; 
+while(!cin.good()) {  
+cin.clear();  
+cin.ignore(INT_MAX, '\n');  
+cout << "Enter the value for b AGAIN" << endl;  
+cin >> b;  
+} 
+if(a<b) {  
+min = a;  
+max = b; 
+} else if(b<a) {  
+min = b;  
+max = a; } 
+else {  
+cout << "You broke me" << endl;  
+return 1; 
+} 
+for(int i = 1; i <= min; i++) {  
+if(max%i==0)   
+gcd = i; 
+} 
+cout << gcd << endl; 
+return 0;
+}
