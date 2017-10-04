@@ -1,1 +1,80 @@
-.
+#include <iostream> 
+#include <climits> 
+#include <algorithm>
+int minValue(int, int);
+int maxValue(int, int);
+int gcdBrute(int, int);
+int gcdEuclid(int, int);
+using namespace std; 
+int main() {  
+int a,b,min,max,gcd,choice;
+cout << "Enter the value for a" << endl;  
+cin >> a;  
+while(!cin.good()) {   
+cin.clear();   
+cin.ignore(INT_MAX, '\n');   
+cout << "Enter the value for a AGAIN" << endl;   
+cin >> a;   
+}  
+cout << "Enter the value for b" << endl;  
+cin >> b;  
+while(!cin.good()) {   
+cin.clear();   
+cin.ignore(INT_MAX, '\n');   
+cout << "Enter the value for b AGAIN" << endl;   
+cin >> b;   
+}
+min = minValue(a,b);
+cout << min << endl;
+max = maxValue(a,b);
+cout << max << endl;
+cout << "Choose brute force or euclidian method \n1 = Brute Force\n2 = Euclidian\n";
+cin >> choice;
+switch(choice) {
+case 1:gcd = gcdBrute(min,max);
+break;
+case 2:gcd = gcdEuclid(max,min);
+break;
+default: return 1; 
+};
+cout << gcd << endl; 
+return 0; 
+} 
+
+int gcdEuclid(int a, int b) {
+if(b == 0) return a;
+int gcd;
+gcd = gcdEuclid(b,a%b);
+return gcd;
+}
+
+int gcdBrute(int a, int b) {
+int gcd; 
+for(int i = 1; i <= a; i++) {   
+if(b%i==0)    
+gcd = i;  
+} 
+return gcd;
+}
+
+int minValue(int a, int b) {
+if(a<b) {   
+return a;   
+} else if(b<a) {   
+return b;   
+}  
+else {   
+cout << "You broke me" << endl;   
+return 1;  
+} 
+}
+
+int maxValue(int a, int b) {
+if(a<b) {    return b;  
+} else if(b<a) {   
+return a; }  
+else {   
+cout << "You broke me" << endl;   
+return 1;  
+} 
+}
