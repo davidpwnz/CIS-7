@@ -1,6 +1,7 @@
 #include <iostream> 
 #include <climits> 
-#include <algorithm>
+#include <cstdio>
+#include <cstdio>
 int minValue(int, int);
 int maxValue(int, int);
 int gcdBrute(int, int);
@@ -25,15 +26,17 @@ cout << "Enter the value for b AGAIN" << endl;  
 cin >> b;   
 }
 min = minValue(a,b);
-cout << min << endl;
 max = maxValue(a,b);
-cout << max << endl;
 cout << "Choose brute force or euclidian method \n1 = Brute Force\n2 = Euclidian\n";
 cin >> choice;
+clock_t start;
+start = clock();
 switch(choice) {
 case 1:gcd = gcdBrute(min,max);
+cout << "Time: " << (clock()-start) / (double)(CLOCKS_PER_SEC / 1000) << "ms" << endl;
 break;
 case 2:gcd = gcdEuclid(max,min);
+cout << "Time: " << (clock()-start) / (double)(CLOCKS_PER_SEC / 1000) << "ms" << endl;
 break;
 default: return 1; 
 };
