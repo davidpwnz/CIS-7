@@ -36,3 +36,4 @@ gcd = i; 
 cout << gcd << endl; 
 return 0;
 }
+.
