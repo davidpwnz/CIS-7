@@ -1,1 +1,43 @@
-x
+#include <iostream>
+#include <climits>
+using namespace std;
+
+bool calcIfNotPrime(int);
+
+int main()
+{
+	int num;
+	do {
+		cout << "Enter a positive integer that is not prime." << endl;
+		cin >> num;
+		while (!cin.good() || num < 1) {
+			cin.clear();
+			cin.ignore(INT_MAX, '\n');
+			cout << "Enter a positive integer that is not prime." << endl;
+			cin >> num;
+		}
+	} while(!calcIfNotPrime(num));
+
+	for (int i = 2; i < num; i++)
+	{
+		while (num % i == 0)
+		{
+			num = num / i;
+			cout << i << " ";
+		}
+	}
+	cout << endl;
+	return 0;
+}
+
+bool calcIfNotPrime(int num) {
+	for (int i = 2, e = 0; i < num; i++) {
+		if (num % i == 0) {
+			i = num;
+			e++;
+			return true;
+		}
+		if (e >= 0)
+			return false;
+	}
+}
