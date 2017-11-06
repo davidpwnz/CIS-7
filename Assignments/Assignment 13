@@ -1,10 +1,30 @@
-- [ ] Write a program that asks the user for 1 integer indicating the number of disks to use.  Then have the program solve the tower of hanoi problem recursively.
-- [ ] Have the program print out each move (for example: "Move disk from tower A to tower C")
-- [ ] Next have the program print out a visual representation of each tower in between moves.  For instance, after the first move, the console could show:
-```
-Tower A: -,2,3
-Tower B: -,-,-
-Tower C: -,-,1
-Move disk 1 to Tower C
-```
-- [ ] After each move, wait for user input and clear the screen
+#include <iostream>
+using namespace std;
+
+void towers(int ,char ,char ,char, int&);
+
+int main()
+{
+	int disks, count = 0;
+
+	cout << "Enter number of disks to move: ";
+	cin >> disks;
+	cout << endl;
+	towers(disks, 'A', 'B', 'C', count);
+	cout << endl << "It took " << count << " moves." << endl << endl;
+
+	return 0;
+}
+
+void towers(int disks, char start, char end, char aux, int& count)
+{
+	count++;
+	if (disks == 1)
+	{
+		cout << "Move disk 1 from peg " << start << " to peg " << end << endl;
+		return;
+	}
+	towers(disks - 1, start, aux, end, count);
+	cout << "Move disk " << disks << " from peg " << start << " to peg " << end << endl;
+	towers(disks - 1, aux, end, start, count);
+}
