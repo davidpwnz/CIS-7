@@ -287,3 +287,4 @@ void powerset(vector <string> A, vector <string> B)
 	}
 
 }
+.
