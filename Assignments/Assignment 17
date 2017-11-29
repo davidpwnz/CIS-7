@@ -237,3 +237,4 @@ void info(vector <vertex*> nod, vector <edge*> edg, int loops, int duplicate, in
 
 
 }
+.
