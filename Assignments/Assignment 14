@@ -1,6 +1,81 @@
-- [ ] Write a program that will take an integer input and then allow the user to either calculate the factorial of that number or get the fibonacci number represented by that number
-- [ ] Both functions in the above step should be recursive
-- [ ] For the factorial function, simulate a call stack by outputting what the contents of the real call stack might look like on each recursive call of the factorial function
-- [ ] Additional clarification was give in class on 10/16, 10/18, and 10/23.  If you did not attend or still need more clarification please see me after any class.	
-- [ ] Upload your assignment to GitHub
-- [ ] Email james.wilson@rccd.edu with the url to the source code on GitHub	
+#include <iostream>
+#include <string>
+using namespace std;
+
+int factorial(int);
+int Fibonacci(int);
+
+int main()
+{
+	int input, choice;
+
+	cout << "Enter a number greater than 0:\n";
+	cin >> input;
+	while(input < 1)
+	{
+		cin.clear();
+		cin.ignore(256, '\n');
+		cout << "Re-Enter a number greater than 0:\n";
+		cin >> input;
+	}
+
+	system("cls");
+	cout << "1) Show Factorial(call stack too)\n"
+		<< "2) Show Fibonacii\n";
+	cin >> choice;
+	bool check = false;
+	if (choice == 1)
+		check = true;
+	else if (choice == 2)
+		check = true;
+	else
+		check = false;
+
+	while(!check)
+	{
+
+		cin.clear();
+		cin.ignore(256, '\n');
+		cout << "Enter numeric value for options listed.\n"
+			<< "1) Show Factorial(call stack too)\n"
+			<< "2) Show Fibonacii\n";
+		cin >> choice;
+		if (choice == 1)
+			check = true;
+		else if (choice == 2)
+			check = true;
+		else
+			check = false;
+	}
+
+	switch (choice)
+	{
+	case 1: cout << "Factorial: \n";
+			cout << factorial(input) << endl;
+		break;
+	case 2: 
+			cout << "Fibonaccii:\n";
+			cout << Fibonacci(input) << endl;
+		break;
+	default: cout << "I broke something....\n";
+		return 1;
+	}
+}
+
+int factorial(int number)
+{
+	cout << "Factorial function called\n";
+	int temp;
+	if (number <= 1) return 1;
+
+	temp = number * factorial(number - 1);
+	return temp;
+}
+
+
+int Fibonacci(int n)
+{
+	if (n == 0 || n == 1)  return n;
+	else
+		return Fibonacci(n - 1) + Fibonacci(n - 2);
+}
