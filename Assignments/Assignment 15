@@ -1,11 +1,289 @@
-- [ ] Write a program that contains 2 sets (Set A, and Set B).  You can use whatever underlying type you want to represent these sets, but they should hold string values
-- [ ] In the program loop, the user should be displayed the values of the contents of A and B as well as a menu with the following options:
-	- Add a value to A: Allow the user to add a string value to A
-	- Add a value to B: Allow the user to add a string value to B
-	- A interset B: Prints out the contents of A interset B
-	- A union B: Prints out the contents of A union B
-	- A diff B: Prints out the contents of A - B
-	- B diff A: Prints out the contents of B - Add
-	- Powersets: Prints out the powersets of A and B		
-- [ ] Upload your assignment along with the dankest meme you can find to GitHub
-- [ ] Email james.wilson@rccd.edu with the url to the source code on GitHub	
+#include <iostream>
+#include <set>
+#include <iterator>
+#include <string>
+#include <vector>
+#include <algorithm>
+
+using namespace std;
+
+void menu();
+void prompt();
+void validation();
+bool repeatChecker(string, vector <string>);
+
+void setDisplay(vector <string>);
+void difference(vector <string>, vector <string>);
+void powerset(vector <string>, vector <string>);
+void cross(vector <string>, vector <string>);
+void intersect(vector <string>, vector <string>);
+void combined(vector <string>, vector <string>);
+
+vector<vector<string>> getAllSubsets(vector<string>);
+
+int main()
+{
+	int choice;
+	bool valid = false;
+
+	string stringA, stringB;
+	vector <string> setA, setB;
+	do
+	{
+		system("cls");
+		menu();
+		cin >> choice;
+		validation();
+
+		if (choice < 1 || choice > 11)
+		{
+			cout << "Invalid input\n";
+			cin.ignore();
+		}
+		prompt();
+
+		switch (choice)
+		{
+		case 1:
+			cout << "Enter a string for setA:\n";
+			getline(cin, stringA);
+			valid = repeatChecker(stringA, setA);
+			if (valid)
+			{
+				cout << "No repeats allowed.\n";
+				cin.ignore();
+			}
+			else
+			{
+				setA.push_back(stringA);
+			}
+			break;
+		case 2:
+			cout << "Enter a string for setB:\n";
+			getline(cin, stringB);
+			valid = repeatChecker(stringB, setB);
+			if (valid)
+			{
+				cout << "No repeats allowed.\n";
+				cin.ignore();
+			}
+			else
+			{
+				setB.push_back(stringB);
+			}
+			break;
+		case 3:
+			intersect(setA, setB);
+			prompt();
+			break;
+		case 4:
+			combined(setA, setB);
+			prompt();
+			break;
+		case 5:
+			difference(setA, setB);
+			prompt();
+			break;
+		case 6:
+			difference(setB, setA);
+			prompt();
+			break;
+		case 7:
+			powerset(setA, setB);
+			prompt();
+			break;
+		case 8:
+			cross(setA, setB);
+			prompt();
+			break;
+		case 9:
+			setDisplay(setA);
+			prompt();
+			break;
+		case 10:
+			setDisplay(setB);
+			prompt();
+			break;
+		}
+
+	} while (choice != 11);
+
+
+}
+
+void setDisplay(vector <string> set)
+{
+	cout << "Contents of set:\n";
+	for (int i = 0; i < set.size(); i++)
+	{
+		cout << (i + 1) << ") " << set[i] << endl;
+	}
+}
+
+void difference(vector <string> A, vector <string> B)
+{
+	int counter = 0;
+	vector <string> AB;
+	for (int i = 0; i < A.size(); i++)
+	{
+		for (int j = 0; j < B.size(); j++)
+		{
+			if (A[i] == B[j])
+			{
+				B[j].erase();
+			}
+		}
+	}
+
+	AB.reserve(A.size() + B.size());
+	AB.insert(AB.end(), A.begin(), A.end());
+	AB.insert(AB.end(), B.begin(), B.end());
+
+	for (int i = 0; i < AB.size(); i++)
+	{
+		cout << (i + 1) << ") " << AB[i] << endl;
+	}
+}
+
+void cross(vector <string> A, vector <string> B)
+{
+	int counter = 0;
+	cout << "Cross of sets:\n";
+	for (int i = 0; i < A.size(); i++)
+	{
+		for (int j = 0; j < B.size(); j++)
+		{
+			counter++;
+			cout << counter << ") " << A[i] << ", " << B[j] << endl;
+		}
+	}
+}
+
+void intersect(vector <string> A, vector <string> B)
+{
+	int counter = 0;
+	cout << "Intersect of A and B:\n";
+	for (int i = 0; i < A.size(); i++)
+	{
+		for (int j = 0; j < B.size(); j++)
+		{
+			if (A[i] == B[j])
+			{
+				counter++;
+				cout << counter << ") " << B[j] << endl;
+			}
+
+		}
+	}
+}
+
+void combined(vector <string> A, vector <string>B)
+{
+	cout << "Contents of A and B:\n";
+	for (int i = 0; i < A.size(); i++)
+	{
+		cout << (i + 1) << ") " << A[i] << endl;
+	}
+	for (int i = 0; i < B.size(); i++)
+	{
+		cout << (A.size() + i + 1) << ") " << B[i] << endl;
+	}
+
+}
+
+void menu()
+{
+	cout << "(No repeats allowed in a set)\n"
+		<< "1) Add a value to A : Allow the user to add a string value to A\n"
+		<< "2) Add a value to B : Allow the user to add a string value to B\n"
+		<< "3) A interset B : Prints out the contents of A interset B\n"
+		<< "4) A union B : Prints out the contents of A union B\n"
+		<< "5) A diff B : Prints out the contents of A - B\n"
+		<< "6) B diff A : Prints out the contents of B - A\n"
+		<< "7) Powersets : Prints out the powersets of A and B\n"
+		<< "8) Cross set : print out the cross set of A and B\n"
+		<< "9) Print out set A\n"
+		<< "10) Print out set B\n"
+		<< "11) Exit\n";
+}
+
+void prompt()
+{
+	cout << "Press enter to continue...\n";
+	cin.ignore();
+	system("cls");
+}
+
+void validation()
+{
+	if (cin.fail())
+	{
+		cin.clear();
+		cin.ignore(256, '\n');
+		cout << "Data type mismatch occured. \n\n";
+	}
+}
+bool repeatChecker(string str, vector <string> set)
+{
+	for (int i = 0; i < set.size(); i++)
+	{
+		if (str == set[i])
+			return true;
+	}
+	return false;
+
+}
+
+vector<vector<string>> getAllSubsets(vector<string> set)
+{
+	vector< vector<string> > subset;
+	vector<string> empty;
+	subset.push_back(empty);
+
+	for (int i = 0; i < set.size(); i++)
+	{
+		vector<vector<string> > subsetTemp = subset;
+
+		for (int j = 0; j < subsetTemp.size(); j++)
+			subsetTemp[j].push_back(set[i]);
+
+		for (int j = 0; j < subsetTemp.size(); j++)
+			subset.push_back(subsetTemp[j]);
+	}
+	return subset;
+}
+
+
+void powerset(vector <string> A, vector <string> B)
+{
+	cout << "Power set of set A:\n";
+
+	vector <vector<string>> myVectorA = getAllSubsets(A);
+
+	vector <vector<string>> myVectorB = getAllSubsets(B);
+	for (int i = 0; i < myVectorA.size(); i++)
+	{
+		cout << "{ ";
+		for (int j = 0; j < myVectorA[i].size(); j++)
+		{
+			cout << myVectorA[i][j] << ", ";
+		}
+
+		cout << " }\n";
+	}
+
+
+	cout << "Power set of set B:\n";
+
+	for (int i = 0; i < myVectorB.size(); i++)
+	{
+		cout << "{ ";
+		for (int j = 0; j < myVectorB[i].size(); j++)
+		{
+			cout << myVectorB[i][j] << ", ";
+		}
+
+		cout << " }\n";
+	}
+
+}
