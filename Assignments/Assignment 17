@@ -5,12 +5,14 @@ bool validation();
 void prompt();
 void menu();
 
+using namespace std;
+
 
 struct vertex
 {
-	std::vector <int> edgesV; 
-	std::vector <int> loopEdges; 
-	
+	vector <int> edgesV;
+	vector <int> loopEdges;
+
 };
 
 struct edge
@@ -21,14 +23,14 @@ struct edge
 	int nod2;
 };
 
-void info(std::vector <vertex*>, std::vector <edge*>, int, int, int);
+void info(vector <vertex*>, vector <edge*>, int, int, int);
 
 int main()
 {
-	std::vector <vertex*> vertices;
-	std::vector <edge*> edges;
-	std::vector <int> isolated;
-	
+	vector <vertex*> vertices;
+	vector <edge*> edges;
+	vector <int> isolated;
+
 	int duplicate = 0; // when it has the same vertices to an edge *duplicate in regards to nodes used
 	int loops = 0;
 	int specialCase = 0; // when its a loop and a duplicate
@@ -40,7 +42,7 @@ int main()
 		do
 		{
 			menu();
-			std::cin >> choice;
+			cin >> choice;
 			valid = validation();
 			if (choice < 1 || choice > 4)
 			{
@@ -54,7 +56,7 @@ int main()
 
 		case 1:
 			vertices.push_back(new vertex);
-			std::cout << "New vertex added\n";
+			cout << "New vertex added\n";
 			prompt();
 
 			break;
@@ -62,30 +64,30 @@ int main()
 
 			if (vertices.empty())
 			{
-				std::cout << "Create a vertex first. \n";
+				cout << "Create a vertex first. \n";
 				break;
 			}
 
 			int num1, num2;
-			
+
 			temp = loops;
 			temp2 = duplicate;
 			do
 			{
-				std::cout << "Pick 2 vertices:\n";
+				cout << "Pick 2 vertices:\n";
 				for (int i = 0; i < vertices.size(); i++)
 				{
-					std::cout << "vertex " << (i + 1) << std::endl;
+					cout << "vertex " << (i + 1) << endl;
 				}
-				std::cin >> num1;
+				cin >> num1;
 				prompt();
 				valid = validation();
-				std::cin >> num2;
+				cin >> num2;
 				prompt();
 				valid = validation();
 				if (num1 > vertices.size() || num2 > vertices.size())
 				{
-					std::cout << "invalid input\n";
+					cout << "invalid input\n";
 					prompt();
 					valid = false;
 				}
@@ -96,19 +98,19 @@ int main()
 			edges[(edges.size() - 1)]->node1 = *vertices[(num2 - 1)];
 			edges[(edges.size() - 1)]->nod1 = num1;
 			edges[(edges.size() - 1)]->nod2 = num2;
-			
 
 
-			for (int i = 0; i < (edges.size()-1); i++)
+
+			for (int i = 0; i < (edges.size() - 1); i++)
 			{
 				if (edges[i]->nod1 == num1 && edges[i]->nod2 == num2 ||
 					edges[i]->nod1 == num2 && edges[i]->nod2 == num1)
 				{
-			
+
 					duplicate++;
 				}
-		
-				
+
+
 			}
 			if (num1 == num2)
 			{
@@ -139,7 +141,7 @@ int main()
 
 void menu()
 {
-	std::cout << "Graph Theory Simulator\n"
+	cout << "Graph Theory Simulator\n"
 		<< "1) Add vertex to graph\n"
 		<< "2) Add edge to graph\n"
 		<< "3) Check graph status\n"
@@ -149,11 +151,11 @@ void menu()
 bool validation()
 {
 
-	if (std::cin.fail())
+	if (cin.fail())
 	{
-		std::cin.clear();
-		std::cin.ignore(256, '\n');
-		std::cout << "Data type mismatch occured. \n\n";
+		cin.clear();
+		cin.ignore(256, '\n');
+		cout << "Data type mismatch occured. \n\n";
 		return false;
 	}
 	else
@@ -162,16 +164,16 @@ bool validation()
 
 void prompt()
 {
-	std::cout << "Press enter to continue...\n";
-	std::cin.ignore();
+	cout << "Press enter to continue...\n";
+	cin.ignore();
 	system("cls");
 }
 
 
-void info(std::vector <vertex*> nod, std::vector <edge*> edg, int loops, int duplicate, int sCase)
+void info(vector <vertex*> nod, vector <edge*> edg, int loops, int duplicate, int sCase)
 {
 	int highestDegree = 0;
-	std::vector <int> isolated;
+	vector <int> isolated;
 
 	for (int i = 0; i < nod.size(); i++)
 	{
@@ -179,22 +181,22 @@ void info(std::vector <vertex*> nod, std::vector <edge*> edg, int loops, int dup
 		{
 			highestDegree = (i + 1);
 		}
-		if (nod[i]->edgesV.empty() )
+		if (nod[i]->edgesV.empty())
 		{
 			isolated.push_back(i);
 		}
 
 	}
-	std::cout << "Vertex with the highest degree: " << "vertex " << highestDegree << std::endl;
+	cout << "Vertex with the highest degree: " << "vertex " << highestDegree << endl;
 
-	std::cout << "Isolated vertices: ";
+	cout << "Isolated vertices: ";
 
 	bool connected;
 
 	if (isolated.size() == 0)
 	{
 		connected = true;
-		std::cout << 0 << std::endl;
+		cout << 0 << endl;
 	}
 	else
 	{
@@ -202,36 +204,36 @@ void info(std::vector <vertex*> nod, std::vector <edge*> edg, int loops, int dup
 	}
 	for (int i = 0; i < isolated.size(); i++)
 	{
-		
-		std::cout << "vertex " << (isolated[i] + 1) << std::endl;
+
+		cout << "vertex " << (isolated[i] + 1) << endl;
 	}
 
-	std::cout << "Number of loops: " << loops << std::endl;
+	cout << "Number of loops: " << loops << endl;
 
 	if (connected == true)
 	{
-		std::cout << "Connected graph\n";
+		cout << "Connected graph\n";
 	}
-		
+
 	else if (connected == false)
 	{
-		std::cout << "Unconnected graph\n";
+		cout << "Unconnected graph\n";
 	}
 
 	int completeGraph = (nod.size()*(nod.size() - 1)) / 2;
 
 	if (completeGraph == (edg.size() - duplicate - loops + sCase) && edg.size() > 1)
 	{
-		std::cout << "Complete graph\n";
+		cout << "Complete graph\n";
 	}
-	else 
+	else
 	{
-		std::cout << "Incomplete graph\n";
+		cout << "Incomplete graph\n";
 	}
-	std::cout << "duplicate: " << duplicate << std::endl;
-	
+	cout << "duplicate: " << duplicate << endl;
 
-	std::cout << "Duplicate loop: " << sCase << std::endl;
 
-	
+	cout << "Duplicate loop: " << sCase << endl;
+
+
 }
