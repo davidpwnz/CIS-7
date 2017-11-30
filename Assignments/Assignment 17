@@ -19,7 +19,7 @@ struct edge
 {
 	vertex node1;
 	vertex node2;
-	int nod1; // to find edges with the same nodes ie: cop out for struct comparison
+	int nod1;
 	int nod2;
 };
 
@@ -31,9 +31,9 @@ int main()
 	vector <edge*> edges;
 	vector <int> isolated;
 
-	int duplicate = 0; // when it has the same vertices to an edge *duplicate in regards to nodes used
+	int duplicate = 0;
 	int loops = 0;
-	int specialCase = 0; // when its a loop and a duplicate
+	int specialCase = 0;
 	bool valid;
 	int choice;
 	int temp, temp2;
